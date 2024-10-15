@@ -11,8 +11,8 @@ from datasets import Dataset
 from torch.utils.data import DataLoader
 from transformers import DataCollatorForSeq2Seq, PreTrainedTokenizerBase
 
-from training.data_selection.get_training_dataset import concat_messages
-from training.data_selection.get_validation_dataset import tokenize
+from ccds.training.data_selection.get_training_dataset import concat_messages
+from ccds.training.data_selection.get_validation_dataset import tokenize
 
 # llama-chat model's instruction format
 B_INST, E_INST = "[INST]", "[/INST]"

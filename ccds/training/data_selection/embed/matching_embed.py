@@ -6,10 +6,10 @@ import torch
 from sklearn.metrics.pairwise import cosine_similarity #* this one is normalized. 
 from datasets import Dataset
 
-from training.data_selection.get_training_dataset import load_raw_dataset
-from training.data_selection.get_validation_dataset import get_raw_val_dataset
+from ccds.training.data_selection.get_training_dataset import load_raw_dataset
+from ccds.training.data_selection.get_validation_dataset import get_raw_val_dataset
 
-from training.data_selection.embed.embed import DenseEncoder  # Assuming you have this in a file or module
+from ccds.training.data_selection.embed.embed import DenseEncoder  # Assuming you have this in a file or module
 
 # Argument parsing
 argparser = argparse.ArgumentParser(description='Script for ranking training data using cosine similarity of embeddings')

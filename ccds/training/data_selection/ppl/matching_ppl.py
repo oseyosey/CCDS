@@ -7,8 +7,8 @@ from tqdm import tqdm
 
 import torch
 
-from training.data_selection.get_training_dataset import load_raw_dataset
-from training.data_selection.get_validation_dataset import get_raw_val_dataset
+from ccds.training.data_selection.get_training_dataset import load_raw_dataset
+from ccds.training.data_selection.get_validation_dataset import get_raw_val_dataset
 
 argparser = argparse.ArgumentParser(
     description='Script for selecting the data for training w. BM25 (Word Frequency)')

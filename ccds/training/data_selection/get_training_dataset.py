@@ -7,7 +7,7 @@ import torch
 from datasets import load_dataset, Dataset
 import logging
 
-from training.data_selection.get_validation_dataset import get_dataset
+from ccds.training.data_selection.get_validation_dataset import get_dataset
 
 
 @contextlib.contextmanager

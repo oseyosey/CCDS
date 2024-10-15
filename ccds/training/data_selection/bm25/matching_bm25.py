@@ -7,8 +7,8 @@ import numpy as np
 import torch
 from rank_bm25 import BM25Okapi
 
-from training.data_selection.get_training_dataset import load_raw_dataset
-from training.data_selection.get_validation_dataset import get_raw_val_dataset
+from ccds.training.data_selection.get_training_dataset import load_raw_dataset
+from ccds.training.data_selection.get_validation_dataset import get_raw_val_dataset
 
 argparser = argparse.ArgumentParser(
     description='Script for selecting the data for training w. BM25 (Word Frequency)')
@@ -38,10 +38,6 @@ def preprocess_text(text):
     
     text = text.translate(str.maketrans('', '', string.punctuation))
     
-    # # Remove stopwords
-    # stop_words = set(stopwords.words('english'))
-    # text = ' '.join([word for word in text.split() if word not in stop_words])
-    
     return text
 
 # arg parse
@@ -66,10 +62,6 @@ for target_task_name in args.target_task_names:
                                         data_dir=data_dir)
     raw_val_datasets_processed = [preprocess_text(doc) for sub_task_name, doc in raw_val_datasets.items()]
 
-    # 1. loop through each subtask and query the task with the BM25 model
-    # 2. obtain the BM25 score for each subtask
-    # 3. create a score/mapping to map back
-    # 4. save the score/mapping to a file
     bm25_sub_task_scores = []
     for task in raw_val_datasets_processed:
         tokenized_sub_task = task.split(" ")
@@ -81,6 +73,6 @@ for target_task_name in args.target_task_names:
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     output_file = os.path.join(
-        args.output_path, target_task_name, f"{target_task_name}_bm25_score_100.pt")
+        args.output_path, target_task_name, f"{target_task_name}_bm25_score.pt")
     torch.save(bm25_scores, output_file)
     print("Saved bm25 score to {}".format(output_file))

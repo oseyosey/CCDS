@@ -2,7 +2,7 @@
 
 ### TRAINING SCRIPT FOR RANDOM DATA SELECTION ###
 
-source training/train_scripts/train/base_training_args.sh
+source ccds/training/train_scripts/train/base_training_args.sh
 
 data_dir=$1
 model_path=$2
@@ -24,10 +24,10 @@ deepspeed_config=${16}
 ID=$(printf "%05d" $((10000 + RANDOM % 90000)))
 if [[ $accelerate_launch == "true" ]]; then
     echo "Using accelerate launch"
-    header="accelerate launch --config_file YOUR_DEEPSPEED_CONFIG_PATH/multi_gpu${number_of_gpus}_${deepspeed_config}.yaml --main_process_port=$ID training/train/train.py"
+    header="accelerate launch --config_file YOUR_DEEPSPEED_CONFIG_PATH/multi_gpu${number_of_gpus}_${deepspeed_config}.yaml --main_process_port=$ID ccds/training/train/train.py"
 else
     header="torchrun --master_port=$ID --nproc_per_node $number_of_gpus --nnodes 1 \
-    -m training.train.train"
+    -m ccds.training.train.train"
 fi
 
 

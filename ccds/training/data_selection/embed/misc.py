@@ -21,7 +21,7 @@ import torch
 import tqdm
 import transformers
 
-from less.data_selection.embed.dist import get_num_proc, get_rank
+from ccds.training.data_selection.embed.dist import get_num_proc, get_rank
 
 
 def get_spider_cache_dir() -> str:

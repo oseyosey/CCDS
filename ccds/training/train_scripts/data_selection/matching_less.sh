@@ -13,7 +13,7 @@ if [[ ! -d $output_path ]]; then
     mkdir -p $output_path
 fi
 
-python3 -m training.data_selection.matching \
+python3 -m ccds.training.data_selection.matching \
 --gradient_path $gradient_path \
 --train_file_names $train_file_names \
 --ckpts $ckpts \

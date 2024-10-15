@@ -3,7 +3,7 @@ import os
 
 import torch
 
-from training.data_selection.get_training_dataset import load_raw_dataset
+from ccds.training.data_selection.get_training_dataset import load_raw_dataset
 from datasets import Dataset
 
 def parse_args():
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     for target_task in args.target_task_names:
         output_path = os.path.join(args.output_path, target_task)
 
-        score_paths = os.path.join(output_path, f"{target_task}_bm25_score_100.pt") 
+        score_paths = os.path.join(output_path, f"{target_task}_bm25_score.pt") 
         
         bm25_scores = torch.load(score_paths, map_location=device)
         bm25_scores_tensor = torch.from_numpy(bm25_scores)
@@ -74,42 +74,5 @@ if __name__ == "__main__":
         selected_lm_datasets = Dataset.from_dict(selected_lm_datasets_dict)
 
         # Save in JSON Lines format
-        selected_lm_datasets.to_json(f"{output_path}/{target_task}-train-p{args.percentage}-bm25-100.jsonl")
+        selected_lm_datasets.to_json(f"{output_path}/{target_task}-train-p{args.percentage}-bm25.jsonl")
         
-
-        # file_specific_index = torch.cat(
-        #     [torch.arange(line_num) for line_num in num_samples]).to(device)
-        # data_from = torch.cat([torch.ones(line_num, dtype=torch.long)
-        #                       * i for i, line_num in enumerate(num_samples)]).to(device)
-        # sorted_scores, sorted_index = torch.sort(
-        #     all_scores, dim=0, descending=True)
-        # sorted_score_file = os.path.join(output_path, f"sorted.csv")
-
-        # data_from = data_from[sorted_index]
-        # sorted_index = file_specific_index[sorted_index]
-        
-
-        # if not os.path.exists(sorted_score_file):
-        #     with open(sorted_score_file, 'w', encoding='utf-8') as file:
-        #         file.write("file name, index, score\n")
-        #         for score, index, name in zip(sorted_scores, sorted_index, data_from):
-        #             file.write(
-        #                 f"{args.train_file_names[name.item()]}, {index.item()}, {round(score.item(), 6)}\n")
-
-        # topk_scores, topk_indices = torch.topk(
-        #     all_scores.float(), args.max_samples, dim=0, largest=True)
-
-        # all_lines = []
-        # for i, train_file in enumerate(args.train_files):
-        #     with open(train_file, 'r', encoding='utf-8', errors='ignore') as file:
-        #         all_lines.append(file.readlines()[:num_samples[i]])
-
-        # final_index_list = sorted_index[:args.max_samples].tolist()
-        # final_data_from = data_from[:args.max_samples].tolist()
-        # with open(os.path.join(output_path, f"top_{data_amount_name}.jsonl"), 'w', encoding='utf-8', errors='ignore') as file:
-        #     for index, data_from in zip(final_index_list, final_data_from):
-        #         try:
-        #             file.write(all_lines[data_from][index])
-        #         except:
-        #             import pdb
-        #             pdb.set_trace()

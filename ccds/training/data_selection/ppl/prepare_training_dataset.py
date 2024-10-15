@@ -8,8 +8,8 @@ import json
 
 import torch
 
-from training.data_selection.get_training_dataset import load_raw_dataset
-from training.data_selection.get_validation_dataset import get_raw_val_dataset
+from ccds.training.data_selection.get_training_dataset import load_raw_dataset
+from ccds.training.data_selection.get_validation_dataset import get_raw_val_dataset
 
 argparser = argparse.ArgumentParser(
     description='Script for preparing the datasets for Perpelxity Based Selection (PBS)')

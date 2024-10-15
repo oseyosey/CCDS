@@ -4,7 +4,7 @@ import math
 
 import torch
 
-from less.data_selection.embed.dist import gather_sum, get_rank, get_world_size
+from ccds.training.data_selection.embed.dist import gather_sum, get_rank, get_world_size
 
 def mean_pool(
     hidden_states: torch.Tensor, attention_mask: torch.Tensor

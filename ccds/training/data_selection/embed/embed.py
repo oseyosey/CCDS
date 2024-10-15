@@ -9,12 +9,12 @@ import numpy as np
 import torch
 import transformers
 
-from less.data_selection.embed.misc import (
+from ccds.training.data_selection.embed.misc import (
     datasets_fast_load_from_disk, 
     get_spider_cache_dir,
     tqdm_if_main_worker,
 )
-from less.data_selection.embed.tensor import (
+from ccds.training.data_selection.embed.tensor import (
     mean_pool,
 )
 

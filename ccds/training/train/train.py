@@ -22,10 +22,10 @@ from accelerate import Accelerator
 from accelerate import dispatch_model, infer_auto_device_map
 from accelerate.utils import get_balanced_memory
 
-from training.data_selection.get_training_dataset import get_training_dataset, get_training_dataset_with_validation
-from training.train.data_arguments import DataArguments, get_data_statistics
-from training.train.model_arguments import ModelArguments, add_padding_to_tokenizer
-from training.train.training_arguments import TrainingArguments
+from ccds.training.data_selection.get_training_dataset import get_training_dataset, get_training_dataset_with_validation
+from ccds.training.train.data_arguments import DataArguments, get_data_statistics
+from ccds.training.train.model_arguments import ModelArguments, add_padding_to_tokenizer
+from ccds.training.train.training_arguments import TrainingArguments
 
 
 logger = logging.getLogger(__name__)
@@ -81,7 +81,7 @@ def main():
     #* Load training dataset
     if training_args.val_only:
         #* (Training with Validation Dataset Only)
-        from training.data_selection.get_validation_dataset import get_dataset
+        from ccds.training.data_selection.get_validation_dataset import get_dataset
         train_dataset = get_dataset(training_args.analysis_dataset,
                                     data_dir=data_args.data_dir,
                                     tokenizer=tokenizer,
@@ -149,7 +149,7 @@ def main():
     
     analysis_dataset = None
     if training_args.analysis_mode:
-        from training.data_selection.get_validation_dataset import get_dataset
+        from ccds.training.data_selection.get_validation_dataset import get_dataset
         analysis_dataset = get_dataset(training_args.analysis_dataset,
                                        data_dir=data_args.data_dir,
                                        tokenizer=tokenizer,

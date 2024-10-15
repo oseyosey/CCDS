@@ -12,10 +12,10 @@ import torch
 from peft import LoraConfig, PeftModel, TaskType, get_peft_model
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from training.data_selection.less.collect_grad_reps import (collect_grads, collect_reps,
+from ccds.training.data_selection.less.collect_grad_reps import (collect_grads, collect_reps,
                                                    get_loss)
-from training.data_selection.get_training_dataset import get_training_dataset
-from training.data_selection.get_validation_dataset import (get_dataloader,
+from ccds.training.data_selection.get_training_dataset import get_training_dataset
+from ccds.training.data_selection.get_validation_dataset import (get_dataloader,
                                                         get_dataset)
 
 

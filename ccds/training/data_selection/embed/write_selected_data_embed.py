@@ -3,7 +3,7 @@ import os
 
 import torch
 
-from less.data_selection.get_training_dataset import load_raw_dataset
+from ccds.training.data_selection.get_training_dataset import load_raw_dataset
 from datasets import Dataset
 
 def parse_args():

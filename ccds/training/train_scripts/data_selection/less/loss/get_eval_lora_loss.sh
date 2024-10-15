@@ -11,7 +11,7 @@ if [[ ! -d $output_path ]]; then
     mkdir -p $output_path
 fi
 
-python3 -m training.data_selection.get_info \
+python3 -m ccds.training.data_selection.get_info \
 --task $task \
 --info_type loss \
 --model_path $model \

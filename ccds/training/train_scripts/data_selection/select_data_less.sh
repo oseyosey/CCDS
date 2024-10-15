@@ -16,7 +16,7 @@ train_files=("$data_dir/train/processed/flan_v2/flan_v2_data.jsonl"
     "$data_dir/train/processed/dolly/dolly_data.jsonl"
 "$data_dir/train/processed/oasst1/oasst1_data.jsonl")
 
-python3 -m training.data_selection.less.write_selected_data_less \
+python3 -m ccds.training.data_selection.less.write_selected_data_less \
 --target_task_names ${target_task_names} \
 --train_file_names ${train_file_names} \
 --train_files ${train_files[@]} 2>&1 \
