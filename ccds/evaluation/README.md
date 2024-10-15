@@ -1,0 +1,6 @@
+## Evaluation
+
+For evaluating the model we run on three challenging but different downstream tasks. These include: the Massive Multitask Language Understanding (MMLU, Hendrycks et al. (2020)) dataset measures models’ factual knowledge, comprising questions across 57 subjects, spanning difficulty levels from elementary to professional; Big-Bench-Hard (BBH, Suzgun et al. (2022)) curates 23 complex reasoning tasks from Big-Bench Srivastava et al. (2022). It is used to evaluate models’ general reasoning capabilities; and Instruction Following Evaluation (IFEval, Zhou et al. (2023)), which evaluates models’ instruction following abilities. For MMLU, we report 5-shot accuracy; for BBH, we report 3-shot exact match score; and for IFEval, we report 0-shot accuracy (strict).
+
+
+We use the evaluation pipeline [open-instruct](https://github.com/allenai/open-instruct/tree/main/eval). We keep a version we use to evaluate the models in `eval` folder. To evaluate a trained model, please check out the `eval_mmlu.sh`, `eval_bbh.sh`, and `eval_ifeval.sh` scripts in the `evaluation` directory. These scripts contain the necessary commands to evaluate the model on the respective datasets. 
