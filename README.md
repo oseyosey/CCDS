@@ -1,5 +1,7 @@
 # Compute-Constrained Data Selection
 
+![](plots/pdfs/Simulation_of_Performance_under_Constraints.pdf)
+
 This repository offers an overview of the components discussed in the paper **Compute-constrained Data Selection**.
 
 Data selection can reduce the amount of training data needed to finetune LLMs; however, the efficacy of data selection scales directly with its compute. Motivated by the practical challenge of compute-constrained finetuning, we consider the setting in which both the cost of selecting data and training are budgeted for. We first formalize the problem of data selection with a cost-aware utility function, and model the data selection problem as trading off initial-selection cost for training gain. We run a comprehensive sweep of experiments across multiple tasks, varying compute budget by scaling finetuning tokens, model sizes, and data selection compute. These experiments show the validity of this model in real-world experi- ments. Interestingly we find that many powerful data selection methods are almost never compute-optimal, and that cheaper data selection alternatives dominate both from a theoretical and empirical perspective. Models and datasets from our training runs are available via this repository.
@@ -116,9 +118,11 @@ bash eval_scripts/run_eval_mmlu.sh $model_path
 ## Parametric Fit
 
 To analyze the trade-off between the compute of data selection methods and the expected gain in model performance, we define a simplified parametric form for expected peformance as the following:
+
 $$
 P(k) = (\bar{P}  - P_0)\times \left( 1 - \exp\left( -\lambda \frac{C(k)}{C(|\mathcal{D}|)} \right) \right) + P_0.
 $$
+
 We fit the compute-constrained parametric fit performance function using the code in `plots/MMLU_BBH_Combined_Plot_Fit.ipynb`, which can also be found in this [colab notebook](https://colab.research.google.com/drive/1TakWDNYYLQqcYOCK43xk2s5wcbhw9GIA?usp=sharing). 
 
 Note that the actual fitted parameters is unlikely to be useful: the performance gain rate is model and dataset dependent. However, the close fit of the curves indicates that the underlying model — significant performance gain at the cost of exponentially more compute investment — holds up in practical settings.
