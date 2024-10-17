@@ -116,9 +116,9 @@ bash eval_scripts/run_eval_mmlu.sh $model_path
 ## Parametric Fit
 
 To analyze the trade-off between the compute of data selection methods and the expected gain in model performance, we define a simplified parametric form for expected peformance as the following:
-$$
+```
 P(k) = (\bar{P}  - P_0)\times \left( 1 - \exp\left( -\lambda \frac{C(k)}{C(|\mathcal{D}|)} \right) \right) + P_0.
-$$
+```math
 We fit the compute-constrained parametric fit performance function using the code in `plots/MMLU_BBH_Combined_Plot_Fit.ipynb`, which can also be found in this [colab notebook](https://colab.research.google.com/drive/1TakWDNYYLQqcYOCK43xk2s5wcbhw9GIA?usp=sharing). 
 
 Note that the actual fitted parameters is unlikely to be useful: the performance gain rate is model and dataset dependent. However, the close fit of the curves indicates that the underlying model — significant performance gain at the cost of exponentially more compute investment — holds up in practical settings.
