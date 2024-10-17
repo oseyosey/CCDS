@@ -1,5 +1,7 @@
 # Compute-Constrained Data Selection
 
+![](plots/pdfs/Simulation_of_Performance_under_Constraints.pdf)
+
 This repository offers an overview of the components discussed in the paper **Compute-constrained Data Selection**.
 
 Data selection can reduce the amount of training data needed to finetune LLMs; however, the efficacy of data selection scales directly with its compute. Motivated by the practical challenge of compute-constrained finetuning, we consider the setting in which both the cost of selecting data and training are budgeted for. We first formalize the problem of data selection with a cost-aware utility function, and model the data selection problem as trading off initial-selection cost for training gain. We run a comprehensive sweep of experiments across multiple tasks, varying compute budget by scaling finetuning tokens, model sizes, and data selection compute. These experiments show the validity of this model in real-world experi- ments. Interestingly we find that many powerful data selection methods are almost never compute-optimal, and that cheaper data selection alternatives dominate both from a theoretical and empirical perspective. Models and datasets from our training runs are available via this repository.
