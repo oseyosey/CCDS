@@ -10,7 +10,7 @@ Data selection can reduce the amount of training data needed to finetune LLMs; h
 
 <!-- TOC -->
 
-- [Data Selection Methods](#Data Selection Methods)
+- [Data Selection Methods](#data-selection-methods)
   - [Lexicon-Based](#Lexicon-Based)
   - [Embedding-Based](#Embedding-Based)
   - [Perplexity-Based](#Perplexity-Based)
