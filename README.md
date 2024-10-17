@@ -72,7 +72,7 @@ pip install -r requirement.txt
 pip install -e .
 ```
 
-You will also need to download the processed ccds_data from 
+You will also need to download the processed [ccds_data](https://huggingface.co/datasets/CCDS-Scaling/ccds_data). Once unzipped, You have to put the folder in the directory `CCDS/ccds`. You will also need to download the necessary datasets you want to have that is processed by different data selection methods. As an example, you can dwnoload data selected by [LESS on IFEVAL](https://huggingface.co/datasets/CCDS-Scaling/ifeval-train-p1.0-less-seed3) and put inside the unzipped data folder. 
 
 ### Training
 
