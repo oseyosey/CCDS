@@ -1,6 +1,6 @@
 # Compute-Constrained Data Selection
 
-![](plots/pdfs/Simulation_of_Performance_under_Constraints.pdf)
+![](plots/pdfs/Simulation_of_Performance_under_Constraints.png)
 
 This repository offers an overview of the components discussed in the paper **Compute-constrained Data Selection**.
 
