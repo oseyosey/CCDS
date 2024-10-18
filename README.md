@@ -29,9 +29,95 @@ Data selection can reduce the amount of training data needed to finetune LLMs; h
 
 ## Data Selection Methods
 
+ We consider four classes of data selection in this work, that represent three different levels of compute.
 
+### Lexicon-Based
 
+Lexicon data selection methods utilize statistical properties of text to evaluate the relevance of data points without relying on deep learning models. We choose BM25 as it's one of the most effecitve and commonly used. Since the algorithm can be run efficiently with a single-core cpu, the data selection FLOPs are almost 0.
 
+To run BM25 data selection for a specific task, refer to `ccds_scripts/calculate_bm25_score.sh`, which generates utility scores for each data entry and produces the selected (ordered) data:
+
+```
+train_file_names="flan_v2 cot dolly oasst1"
+target_task_names="mmlu" # mmlu, bbh, ifeval
+selected_data_output_path="data/selected_data"
+select_percentage=1.0
+
+./ccds/training/train_scripts/data_selection/matching_bm25.sh "$train_file_names" "$target_task_names" "$selected_data_output_path" 
+
+./ccds/training/train_scripts/data_selection/select_data_bm25.sh "$train_file_names" "$target_task_names" "$selected_data_output_path" "$select_percentage"
+```
+
+### Embedding-based 
+
+These methods utilize embedding models to select data points that are most similar to the target data. Since we are using a very small model (BERT-size) and the embedding requires only one-time transformation of data points into dense vectors, the data selection FLOPs are quite small. 
+
+To run our Embed data selection for a specific task, refer to ccds_scripts/calculate_embed_score.sh:
+
+```
+train_file_names="flan_v2 cot dolly oasst1"
+target_task_names="mmlu" # mmlu, bbh, ifeval
+selected_data_output_path="data/selected_data"
+select_percentage=1.0
+
+./ccds/training/train_scripts/data_selection/matching_embed.sh "$train_file_names" "$target_task_names" "$selected_data_output_path" 
+
+./ccds/training/train_scripts/data_selection/select_data_embed.sh "$train_file_names" "$target_task_names" "$selected_data_output_path" "$select_percentage"
+```
+
+### Perplexity-Based
+
+Perplexity-based data selection utilizes language models to evaluate the utility of data points based on model loss. *Top-PPL* and *Mid-PPL* have both shown improved performance and training efficiency, where *Top-PPL* ranks data points with the highest perplexity scores, and *Mid-PPL* does the same for points in the middle of the score distribution. The data selection FLOPs is exactly one forward pass across the entire datasets. 
+
+To perform PPL data selection, you must first fine-tune the model on the reference datasets. Afterward, you can run the selection by referencing `ccds_scripts/calculate_ppl_score.sh`:
+
+```
+train_file_names="flan_v2 cot dolly oasst1"
+target_task_names=$target_task
+selected_data_output_path="data/selected_data"
+select_percentage=1.0
+epochs=25 #* how many epochs the model are trained
+
+model_dir="" # finetuned PPL model directory
+
+./ccds/training/train_scripts/data_selection/matching_ppl.sh "$train_file_names" "$target_task_names" "$selected_data_output_path" "$model_dir"  "$epochs"
+
+#TOP PPL 
+for data_seed in 3 6 9 12 15; do
+    ./ccds/training/train_scripts/data_selection/select_data_ppl_top.sh "$train_file_names" "$target_task_names" "$selected_data_output_path" "$select_percentage" "$epochs" "$data_seed"
+done
+
+# MID PPL 
+for data_seed in 3 6 9 12 15; do
+    ./ccds/training/train_scripts/data_selection/select_data_ppl_mid.sh "$train_file_names" "$target_task_names" "$selected_data_output_path" "$select_percentage" "$epochs" "$data_seed"
+done
+```
+
+### Gradient-Based
+
+Gradinet-based methods generally evaluate the utility of data points based on their influence on the model’s loss with respect to the target data. Computing gradients involves both forward and backward passes, totaling approximately three times the cost of a forward pass (the actually implementation may requires more). [Low-rank sgradiEnt Similarity Search ](https://arxiv.org/pdf/2402.04333)(*LESS*) shows superior performance gain over cheaper methods and random selection.
+
+Please refer to [LESS](https://github.com/princeton-nlp/LESS) to see how to perform gradient-based data selection (we also provide our implementation of LESS in the ccds codebase). To summarize, you need to:
+
+- **Step 1:** Warmup training for 4 epochs
+
+- **Step 2:** Building the gradient datastore on training dataset
+- **Step 3:** Building the gradient datastore on reference/validation dataset
+- **Step 4:** Calculate the influence score for each training data point w.r.t the validaiton data point
+
+Once you obtain the influence scores for each data with LESS, you can use ```ccds_scripts/calculate_less_score.sh``` to select data:
+
+```
+train_file_names="flan_v2 cot dolly oasst1"
+target_task_names="mmlu"
+selected_data_output_path="data/selected_data"
+select_percentage=1.0
+less_seed=3
+
+./ccds/training/train_scripts/data_selection/select_data_less.sh "$train_file_names" "$target_task_names" "$selected_data_output_path" "$select_percentage" "$less_seed"
+```
+
+## 
 
 ## Models
 
