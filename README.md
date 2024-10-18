@@ -29,7 +29,7 @@ Data selection can reduce the amount of training data needed to finetune LLMs; h
 
 ## Data Selection Methods
 
- We consider four classes of data selection in this work, that represent three different levels of compute.
+ We consider four classes of data selection in this work, that represent four different levels of compute.
 
 ### Lexicon-Based
 
