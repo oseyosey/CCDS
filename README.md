@@ -263,7 +263,7 @@ Code to produce the plots in our main paper can be found in these respective fil
 
 ## Acknowledgement
 
-- The training code is built upon [LESS](https://github.com/princeton-nlp/LESS) by Mengzhou et al. 
+- The training code is built upon [LESS](https://github.com/princeton-nlp/LESS) by Xia et al. 
 - The evaluation code is modified from [OpenInstruct](https://github.com/allenai/open-instruct) by AI2. 
 - This work is based on the [LLaMA 2/3](https://ai.meta.com/llama) as the pre-trained models.
 - We use [LoRA](https://arxiv.org/pdf/2106.09685), [PEFT](https://huggingface.co/docs/peft/en/index) for supervised fine-tuning.
