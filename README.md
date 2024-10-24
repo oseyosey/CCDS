@@ -256,7 +256,7 @@ Code to produce the plots in our main paper can be found in these respective fil
 @article{yin2024compute-constrained,
   title={Compute-Constrained Data Selection},
   author={Yin, Junjie Oscar and Rush, Alexander M.},
-  journal={arXiv preprint arXiv:},
+  journal={arXiv preprint arXiv:2410.16208},
   year={2024}
 }
 ```
